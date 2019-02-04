@@ -1,0 +1,52 @@
+#!/bin/sh
+
+#
+# PROVIDE: centreon-engine
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf to enable centreon-engine:
+# centreon-engine_enable (bool):    Set to "NO" by default.
+#                         Set it to "YES" to enable centreon-engine.
+# centreon-engine_flags (str):      Not set by default.
+# centreon-engine_configfile (str): Set to "%%PREFIX%%/etc/centreon-engine.conf" by default.
+
+. /etc/rc.subr
+
+name=centreon-engine
+rcvar=centreon-engine_enable
+
+load_rc_config "${name}"
+
+: ${centreon-engine_enable:=NO}
+: ${centreon-engine_configfile:=%%PREFIX%%/etc/centreon-engine.conf}
+
+required_files="${centreon-engine_configfile}"
+
+command="%%PREFIX%%/sbin/centreon-engine"
+command_args="-c ${centreon-engine_configfile} -d"
+extra_commands=reload
+sig_reload=HUP
+
+start_precmd=centreon-engine_prestart
+stop_precmd=find_pidfile
+
+find_pidfile()
+{
+	[ -n "$centreon-engine_pidfile" ] &&
+	    warn "No longer necessary to set centreon-engine_pidfile in rc.conf[.local]"
+
+	if get_pidfile_from_conf pid_file ${centreon-engine_configfile}; then
+		pidfile="$_pidfile_from_conf"
+	else
+		pidfile='%%PIDDIR%%/centreon-engine.pid'
+	fi
+}
+
+centreon-engine_prestart()
+{
+	find_pidfile
+	install -d -o ${ceuser:-centreon-engine} ${pidfile%/*}
+}
+
+run_rc_command "$1"
