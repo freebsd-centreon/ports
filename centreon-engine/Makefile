@@ -21,7 +21,7 @@ CEGROUP?=	centreon-engine
 USERS=		${CEUSER}
 GROUPS=		${CEGROUP}
 
-USE_GCC=	yes	
+#USE_GCC=	yes	
 USES=		cmake
 CMAKE_SOURCE_PATH=	${WRKSRC}/build
 CMAKE_ARGS=	-DWITH_PREFIX=${PREFIX} \
