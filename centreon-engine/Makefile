@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	centreon-engine
-DISTVERSION=	18.10.0
+DISTVERSION=	19.10.0
 CATEGORIES=	net-mgmt
 
 MAINTAINER=	me@luizgustavo.pro.br
@@ -10,7 +10,7 @@ COMMENT=	Centreon Engine network monitoring application.
 LICENSE=	GPLv2	
 LICENSE_FILE=	${WRKSRC}/license.txt
 
-BUILD_DEPENDS+=   centreon-clib>=18.10.0:net-mgmt/centreon-clib
+BUILD_DEPENDS+=   centreon-clib>=19.10.0:net-mgmt/centreon-clib
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	centreon
