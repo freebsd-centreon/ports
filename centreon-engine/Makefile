@@ -21,8 +21,7 @@ CEGROUP?=       centreon-engine
 USERS=          ${CEUSER}
 GROUPS=         ${CEGROUP}
 
-#USE_GCC=       4.8+
-USES=           cmake:insource,noninja compiler:c++11-lang
+USES=           cmake compiler:c++11-lang
 CMAKE_SOURCE_PATH=      ${WRKSRC}
 CMAKE_ARGS=     -DWITH_PREFIX=${PREFIX} \
                 -DWITH_PREFIX_LIB=${PREFIX}/lib/centreon-engine \
